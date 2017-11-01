@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const isDevelopment = process.env.NODE_ENV === "development";
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -8,6 +9,12 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractCssFile = new ExtractTextPlugin({ filename: "[name].[contenthash:8].css", disable: isDevelopment });
 const CleanHtml = new CleanWebpackPlugin(["dist"]);
 const BundleHtml = new HtmlWebpackPlugin({ template: "./src/index.html", filename: "../index.html" });
+const VendorChunk = new webpack.optimize.CommonsChunkPlugin({ name: "vendor", minChunks: function(module) {
+  return module.context && module.context.indexOf("node_modules") !== -1;
+}});
+const ManifestChunk = new webpack.optimize.CommonsChunkPlugin({ name: "runtime", minChunks: Infinity });
+
+const ModuleIds = isDevelopment ? new webpack.NamedModulesPlugin() : new webpack.HashedModuleIdsPlugin();
 
 module.exports = {
   entry: "./src/app.ts",
@@ -58,11 +65,21 @@ module.exports = {
   },
   resolve: {
     extensions: [ ".ts", ".js", ".scss", ".css", ".less" ]
+    // alias: {
+    //   jquery: "jquery/src/jquery"
+    // }
   },
   plugins: [
     ExtractCssFile,
     CleanHtml,
-    BundleHtml
+    BundleHtml,
+    ModuleIds,
+    VendorChunk,
+    ManifestChunk
+    // new webpack.ProvidePlugin({
+    //   $: "jquery",
+    //   jQuery: "jquery"
+    // })
   ],
   output: {
     filename: "[name].[chunkhash:8].js",
