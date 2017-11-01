@@ -1,5 +1,6 @@
 // Named exports
 export var Count: number = 5;
+
 export function Multiply(a: number, b: number) {
   return a * b;
 }
