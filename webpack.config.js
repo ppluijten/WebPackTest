@@ -1,9 +1,9 @@
-const path = require("path")
+const path = require("path");
 const isDevelopment = process.env.NODE_ENV === "development";
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const ExtractCssFile = new ExtractTextPlugin({ filename: "[name].[contenthash:8].css", disable: isDevelopment });
 const CleanHtml = new CleanWebpackPlugin(["dist"]);
@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/
       },
       {
@@ -66,6 +66,6 @@ module.exports = {
   ],
   output: {
     filename: "[name].[chunkhash:8].js",
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, "dist")
   }
 };
