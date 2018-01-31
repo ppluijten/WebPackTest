@@ -63,6 +63,7 @@ module.exports = {
       }
     ]
   },
+  devtool: "eval-source-map",
   resolve: {
     extensions: [ ".ts", ".js", ".scss", ".css", ".less" ]
     // alias: {
@@ -76,9 +77,14 @@ module.exports = {
     ModuleIds,
     VendorChunk,
     ManifestChunk
-    // new webpack.ProvidePlugin({
+    // ,new webpack.ProvidePlugin({
     //   $: "jquery",
     //   jQuery: "jquery"
+    // })
+    // ,new webpack.DefinePlugin({
+    //   "process.env": {
+    //     NODE_ENV: JSON.stringify("production")
+    //   }
     // })
   ],
   output: {
