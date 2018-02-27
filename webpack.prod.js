@@ -11,12 +11,6 @@ const ProductionMode = new webpack.DefinePlugin({
   "process.env.NODE_ENV": JSON.stringify("production")
 });
 
-// const ProductionMode = new webpack.DefinePlugin({
-//   "process.env": {
-//     NODE_ENV: JSON.stringify("production")
-//   }
-// });
-
 const ProductionModuleIds = new webpack.HashedModuleIdsPlugin();
 
 const ExtractCssFile = new ExtractTextPlugin({ filename: "[name].[contenthash:8].css" });
